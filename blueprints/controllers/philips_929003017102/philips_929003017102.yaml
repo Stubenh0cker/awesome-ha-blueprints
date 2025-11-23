@@ -1,0 +1,413 @@
+# Blueprint metadata
+blueprint:
+  name: Controller - Philips 929003017102 Hue Wall switch module
+  description: |
+    # Controller - Philips 929003017102 Hue Wall switch module
+
+    Controller automation for executing any kind of action triggered by the provided Philips 929003017102 Hue Wall switch module. Allows to optionally loop an action on a button long press.
+    Supports Zigbee2MQTT.
+
+    Automations created with this blueprint can be connected with one or more [Hooks](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/hooks) supported by this controller.
+    Hooks allow to easily create controller-based automations for interacting with media players, lights, covers and more.
+    See the list of [Hooks available for this controller](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/philips_929003017102#available-hooks) for additional details.
+
+    ## More Info
+
+    ℹ️ Version 2025.04.19
+    📝 [Changelog](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/philips_929003017102/#changelog)
+    📕 Full documentation regarding this blueprint is available [here](https://epmatt.github.io/awesome-ha-blueprints/docs/blueprints/controllers/philips_929003017102).
+
+    🚀 This blueprint is part of the **[Awesome HA Blueprints](https://epmatt.github.io/awesome-ha-blueprints) project**. Please consider **[leaving a star on GitHub](https://github.com/EPMatt/awesome-ha-blueprints)**! 🌟
+
+  source_url: https://github.com/EPMatt/awesome-ha-blueprints/blob/main/blueprints/controllers/philips_929003017102/philips_929003017102.yaml
+  domain: automation
+  homeassistant:
+    min_version: 2024.10.0
+  input:
+    integration:
+      name: (Required) Integration
+      description: Integration used for connecting the remote with Home Assistant. Select one of the available values.
+      selector:
+        select:
+          options:
+            - Zigbee2MQTT
+    controller_device:
+      name: (Zigbee2MQTT Required) Controller Device
+      description: The controller device to use for the automation. Choose a value only if the remote is integrated with Zigbee2MQTT.
+      default: ''
+      selector:
+        device:
+          filter:
+            # source: https://www.zigbee2mqtt.io/devices/929003017102.html#philips-929003017102
+            - integration: mqtt
+              manufacturer: Philips
+              model: Hue wall switch module
+            # For backwards compatability with z2m 1.x. model_id is added to end of model rather than a seperate attribute in z2m 2.x
+            - integration: mqtt
+              manufacturer: Philips
+              model: Hue wall switch module (929003017102)
+            - integration: mqtt
+              manufacturer: Signify Netherlands B.V.
+              model: Hue wall switch module
+            - integration: mqtt
+              manufacturer: Signify Netherlands B.V.
+              model: Hue wall switch module (929003017102)
+          multiple: false
+    helper_last_controller_event:
+      name: (Required) Helper - Last Controller Event
+      description: Input Text used to store the last event fired by the controller. You will need to manually create a text input entity for this, please read the blueprint Additional Notes for more info.
+      default: ''
+      selector:
+        entity:
+          domain: input_text
+    # inputs for custom actions
+    action_button_left_short:
+      name: (Optional) Left button short press
+      description: Action to run on short left button press.
+      default: []
+      selector:
+        action:
+    action_button_left_long:
+      name: (Optional) Left button long press
+      description: Action to run on long left button press.
+      default: []
+      selector:
+        action:
+    action_button_left_release:
+      name: (Optional) Left button release
+      description: Action to run on left button release after long press.
+      default: []
+      selector:
+        action:
+    action_button_right_short:
+      name: (Optional) Right button short press
+      description: Action to run on short right button press.
+      default: []
+      selector:
+        action:
+    action_button_right_long:
+      name: (Optional) Right button long press
+      description: Action to run on long right button press.
+      default: []
+      selector:
+        action:
+    action_button_right_release:
+      name: (Optional) Right button release
+      description: Action to run on right button release after long press.
+      default: []
+      selector:
+        action:
+    action_button_both_short:
+      name: (Optional) Both buttons short press
+      description: Action to run on short both buttons press.
+      default: []
+      selector:
+        action:
+    action_button_both_long:
+      name: (Optional) Both buttons long press
+      description: Action to run on long both buttons press.
+      default: []
+      selector:
+        action:
+    action_button_both_release:
+      name: (Optional) Both buttons release
+      description: Action to run on both buttons release after long press.
+      default: []
+      selector:
+        action:
+    # inputs for looping custom actions on long button press events until the corresponding release event is received
+    button_left_long_loop:
+      name: (Optional) Left button long press - loop until release
+      description: Loop the left button action until the button is released.
+      default: false
+      selector:
+        boolean:
+    button_left_long_max_loop_repeats:
+      name: (Optional) Left button long press - Maximum loop repeats
+      description: >-
+        Maximum number of repeats for the custom action, when looping is enabled.
+        Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.
+      default: 500
+      selector:
+        number:
+          min: 1
+          max: 5000
+          mode: slider
+          step: 1
+    button_right_long_loop:
+      name: (Optional) Right button long press - loop until release
+      description: Loop the right button action until the button is released.
+      default: false
+      selector:
+        boolean:
+    button_right_long_max_loop_repeats:
+      name: (Optional) Right button long press - Maximum loop repeats
+      description: >-
+        Maximum number of repeats for the custom action, when looping is enabled.
+        Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.
+      default: 500
+      selector:
+        number:
+          min: 1
+          max: 5000
+          mode: slider
+          step: 1
+    button_both_long_loop:
+      name: (Optional) Both buttons long press - loop until release
+      description: Loop the both buttons action until the buttons are released.
+      default: false
+      selector:
+        boolean:
+    button_both_long_max_loop_repeats:
+      name: (Optional) Both buttons long press - Maximum loop repeats
+      description: >-
+        Maximum number of repeats for the custom action, when looping is enabled.
+        Use it as a safety limit to prevent an endless loop in case the corresponding stop event is not received.
+      default: 500
+      selector:
+        number:
+          min: 1
+          max: 5000
+          mode: slider
+          step: 1
+    helper_debounce_delay:
+      name: (Optional) Helper - Debounce delay
+      description:
+        Delay used for debouncing RAW controller events, by default set to 0. A value of 0 disables the debouncing feature. Increase this value if you notice custom actions or linked Hooks running multiple times when interacting with the device. When the controller needs to be debounced,
+        usually a value of 100 is enough to remove all duplicate events.
+      default: 0
+      selector:
+        number:
+          min: 0
+          max: 1000
+          unit_of_measurement: milliseconds
+          mode: box
+          step: 10
+# Automation schema
+variables:
+  # convert input tags to variables, to be used in templates
+  integration: !input integration
+  button_left_long_loop: !input button_left_long_loop
+  button_left_long_max_loop_repeats: !input button_left_long_max_loop_repeats
+  button_right_long_loop: !input button_right_long_loop
+  button_right_long_max_loop_repeats: !input button_right_long_max_loop_repeats
+  button_both_long_loop: !input button_both_long_loop
+  button_both_long_max_loop_repeats: !input button_both_long_max_loop_repeats
+  helper_last_controller_event: !input helper_last_controller_event
+  helper_debounce_delay: !input helper_debounce_delay
+  # integration id used to select items in the action mapping
+  integration_id: '{{ integration | lower }}'
+  # mapping between actions and integrations
+  actions_mapping:
+    zigbee2mqtt:
+      # source: https://www.zigbee2mqtt.io/devices/929003017102.html#philips-929003017102
+      button_left_short: [left_press]
+      button_left_long: [left_hold]
+      button_left_release: [left_release]
+      button_right_short: [right_press]
+      button_right_long: [right_hold]
+      button_right_release: [right_release]
+      button_both_short: [both_press]
+      button_both_long: [both_hold]
+      button_both_release: [both_release]
+  # pre-choose actions for buttons based on configured integration
+  # no need to perform this task at automation runtime
+  button_left_short: '{{ actions_mapping[integration_id]["button_left_short"] }}'
+  button_left_long: '{{ actions_mapping[integration_id]["button_left_long"] }}'
+  button_left_release: '{{ actions_mapping[integration_id]["button_left_release"] }}'
+  button_right_short: '{{ actions_mapping[integration_id]["button_right_short"] }}'
+  button_right_long: '{{ actions_mapping[integration_id]["button_right_long"] }}'
+  button_right_release: '{{ actions_mapping[integration_id]["button_right_release"] }}'
+  button_both_short: '{{ actions_mapping[integration_id]["button_both_short"] }}'
+  button_both_long: '{{ actions_mapping[integration_id]["button_both_long"] }}'
+  button_both_release: '{{ actions_mapping[integration_id]["button_both_release"] }}'
+  # build data to send within a controller event
+  controller_id: !input controller_device
+mode: restart
+max_exceeded: silent
+triggers:
+  # triggers for zigbee2mqtt mqtt device action
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: left_press
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: left_hold
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: left_release
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: right_press
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: right_hold
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: right_release
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: both_press
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: both_hold
+  - trigger: device
+    domain: mqtt
+    device_id: !input controller_device
+    type: action
+    subtype: both_release
+conditions:
+  - condition: and
+    conditions:
+      # check that the button event is not empty
+      - '{{ trigger.payload not in ["","None"] }}'
+actions:
+  # debouncing - when automation is triggered multiple times, the last automation run is the one which completes execution, due to mode restart
+  # therefore previous runs must wait for the debounce delay before executing any other action
+  # if the delay expires and the automation is still running it means it's the last run and execution can continue
+  - delay:
+      milliseconds: !input helper_debounce_delay
+  # extract button event from the trigger
+  # provide a single string value to check against
+  - variables:
+      trigger_action: '{{ trigger.payload }}'
+      deserialized_state: '{{ (states(helper_last_controller_event) | from_json) if helper_last_controller_event is not none and (states(helper_last_controller_event) | regex_match("^\{\s*?((\"a\":\s*?\".*\"|\"t\":\s*?\d+\.\d+)(,\s*?)?){2}\s*?\}$")) else {} }}'
+      last_controller_event: '{{ deserialized_state.a | default(None) }}'
+      trigger_delta: '{{ (as_timestamp(now()) - (deserialized_state.t | default(0))) * 1000 }}'
+  # update helper
+  - action: input_text.set_value
+    data:
+      entity_id: !input helper_last_controller_event
+      value: '{{ {"a":trigger_action,"t":as_timestamp(now())} | to_json }}'
+  # choose the sequence to run based on the received button event
+  - choose:
+      - conditions: '{{ trigger_action | string in button_left_short }}'
+        sequence:
+          # fire the event
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: button_left_short
+          # run the custom action
+          - choose:
+              - conditions: []
+                sequence: !input action_button_left_short
+      - conditions: '{{ trigger_action | string in button_left_long }}'
+        sequence:
+          # fire the event only once before looping the action
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: button_left_long
+          - choose:
+              # if looping is enabled, loop the action for a finite number of iterations
+              - conditions: '{{ button_left_long_loop }}'
+                sequence:
+                  - repeat:
+                      while: '{{ repeat.index < button_left_long_max_loop_repeats | int }}'
+                      sequence: !input action_button_left_long
+            # if looping is not enabled run the custom action only once
+            default: !input action_button_left_long
+      - conditions: '{{ trigger_action | string in button_left_release }}'
+        sequence:
+          # fire the event
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: button_left_release
+          # run the custom action
+          - choose:
+              - conditions: []
+                sequence: !input action_button_left_release
+      - conditions: '{{ trigger_action | string in button_right_short }}'
+        sequence:
+          # fire the event
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: button_right_short
+          # run the custom action
+          - choose:
+              - conditions: []
+                sequence: !input action_button_right_short
+      - conditions: '{{ trigger_action | string in button_right_long }}'
+        sequence:
+          # fire the event only once before looping the action
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: button_right_long
+          - choose:
+              # if looping is enabled, loop the action for a finite number of iterations
+              - conditions: '{{ button_right_long_loop }}'
+                sequence:
+                  - repeat:
+                      while: '{{ repeat.index < button_right_long_max_loop_repeats | int }}'
+                      sequence: !input action_button_right_long
+            # if looping is not enabled run the custom action only once
+            default: !input action_button_right_long
+      - conditions: '{{ trigger_action | string in button_right_release }}'
+        sequence:
+          # fire the event
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: button_right_release
+          # run the custom action
+          - choose:
+              - conditions: []
+                sequence: !input action_button_right_release
+      - conditions: '{{ trigger_action | string in button_both_short }}'
+        sequence:
+          # fire the event
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: button_both_short
+          # run the custom action
+          - choose:
+              - conditions: []
+                sequence: !input action_button_both_short
+      - conditions: '{{ trigger_action | string in button_both_long }}'
+        sequence:
+          # fire the event only once before looping the action
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: button_both_long
+          - choose:
+              # if looping is enabled, loop the action for a finite number of iterations
+              - conditions: '{{ button_both_long_loop }}'
+                sequence:
+                  - repeat:
+                      while: '{{ repeat.index < button_both_long_max_loop_repeats | int }}'
+                      sequence: !input action_button_both_long
+            # if looping is not enabled run the custom action only once
+            default: !input action_button_both_long
+      - conditions: '{{ trigger_action | string in button_both_release }}'
+        sequence:
+          # fire the event
+          - event: ahb_controller_event
+            event_data:
+              controller: '{{ controller_id }}'
+              action: button_both_release
+          # run the custom action
+          - choose:
+              - conditions: []
+                sequence: !input action_button_both_release

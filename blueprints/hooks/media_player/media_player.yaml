@@ -50,6 +50,7 @@ blueprint:
             - Philips 324131092621 Hue Dimmer switch
             - Philips 8718699693985 Hue Smart Button
             - Philips 929002398602 Hue Dimmer switch v2
+            - Philips 929003017102 Hue Wall switch module
             - SONOFF SNZB-01 Wireless Switch
             - Tuya ERS-10TZBVK-AA Smart knob
             - Xiaomi WXCJKG11LM Aqara Opple 2 button remote
@@ -190,6 +191,12 @@ variables:
       volume_up_repeat: button_up_long
       volume_down: button_down_short
       volume_down_repeat: button_down_long
+    Philips 929003017102 Hue Wall switch module:
+      play_pause: button_left_short
+      next_track: button_left_long
+      stop: button_right_short
+      prev_track: button_right_long
+      toggle: button_both_short
     SONOFF SNZB-01 Wireless Switch:
       play_pause: button_short
       stop: button_long
