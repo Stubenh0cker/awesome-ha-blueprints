@@ -43,6 +43,8 @@ blueprint:
             - IKEA E2123 SYMFONISK sound remote, gen 2
             - IKEA E2201 RODRET Dimmer
             - IKEA E2213 SOMRIG shortcut button
+            - Philips 8719514440937/8719514440999 Hue Tap Dial Switch
+            - Philips 929003017102 Hue Wall Switch Module
             - SONOFF SNZB-01 Wireless Switch
             - Xiaomi WXCJKG11LM Aqara Opple 2 button remote
             - Xiaomi WXCJKG12LM Aqara Opple 4 button remote
@@ -107,6 +109,16 @@ variables:
       close_cover: button_dots2_short
       close_cover_tilt: button_dots2_long
       stop_cover_all: button_dots2_double
+    Philips 8719514440937/8719514440999 Hue Tap Dial Switch:
+      open_cover: button_1_short
+      close_cover: button_2_short
+      open_cover_tilt: button_3_short
+      close_cover_tilt: button_4_short
+      stop_cover_all: button_1_double
+    Philips 929003017102 Hue Wall Switch Module:
+      open_cover: left_short
+      close_cover: right_short
+      stop_cover_all: left_double
     SONOFF SNZB-01 Wireless Switch:
       open_cover: button_short
       stop_cover_all: button_long
